@@ -1,0 +1,38 @@
+services:
+  phpboost:
+    build: .
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - phpboost:/var/www/html  # Volume en lecture-écriture
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PREFIX=${DB_PREFIX}
+      - APP_ENV=${APP_ENV}
+      - APP_DEBUG=${APP_DEBUG}
+      - APP_URL=${APP_URL}
+      - APP_KEY=${APP_KEY}
+      - APP_LOCALE=${APP_LOCALE}
+      - APP_TIMEZONE=${APP_TIMEZONE}
+
+  mysql-1:
+    image: mysql:8.0  # Utilisation d'une version spécifique
+    volumes: 
+      - mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_PORT=${DB_PORT}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+
+volumes:
+  phpboost:
+  mysql_data:
