@@ -15,7 +15,7 @@ COPY ./phpboost /var/www/html
 # Changement des permissions pour Apache et du répertoire de cache
 RUN chown -R www-data:www-data /var/www/html/ \
     && chmod -R 755 /var/www/html/ \
-    && chmod -R 775 /var/www/html/cache
+    && chmod -R 755 /var/www/html/cache
 
 # Expose le port 80 et 443
 EXPOSE 80 443
